@@ -1,5 +1,6 @@
 @import "./normalize.css";
 
+/* 
 /* :root 变量*/
 :root {
   /* 字体颜色 */
@@ -11,9 +12,9 @@
   /* 背景色 */
   --color-background: #fff;
   /* //字体的大小 */
-  --font-size: 14px
-    /* 行高 */
-    --font-size:14px
+  --font-size: 14px;
+  /* 行高 */
+  --font-size: 14px;
 }
 
 *,

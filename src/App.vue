@@ -8,10 +8,10 @@
 <script>
 export default {
   name: "App",
-  components: {},
+  components: {}
 };
 </script>
-  
+
 <style>
-@import "./assets/Base.css";
+@import "assets/css/Base.css";
 </style>
