@@ -12,11 +12,15 @@
     </swiper>-->
     <!-- //福安波图 -->
     <home-swiper :banners="banners"></home-swiper>
+    <recommend-view :recommends="recommends"></recommend-view>
   </div>
 </template>
 <script>
 import NavBar from "./../../components/common/navbar/NavBar";
+//轮播图
 import HomeSwiper from "./childComps/HomeSwiper";
+//首页推荐
+import RecommendView from "./childComps/RecommendView";
 // 封装到了home的homeswiper
 // import { Swiper, SwiperItem } from "./../../components/common/swiper";
 import { getHomeMultidata } from "./../../network/home";
@@ -25,6 +29,7 @@ export default {
   components: {
     NavBar,
     HomeSwiper,
+    RecommendView,
   },
   data() {
     return {
