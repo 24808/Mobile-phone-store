@@ -15,7 +15,7 @@ export default {
     recommends: {
       type: Array,
       default() {
-        return []-
+        return [];
       },
     },
   },

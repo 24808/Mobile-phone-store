@@ -20,14 +20,14 @@
       <img src="..\..\assets\img\tabbar\首页.png" alt="" srcset="" />
 
       <div>我的</div>
-    </div> -->
+    </div>-->
   </div>
 </template>
 
 <script>
 export default {
   name: "tabbar",
-  components: {}
+  components: {},
 };
 </script>
 
@@ -38,14 +38,13 @@ body {
   padding: 0;
   margin: 0;
 }
-
 #tab-bar {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   /* background-color: #f6cccc; */
-  background-color: rgb(0, 0, 0, 0.1);
+  background-color: #eee;
   /* //固定到底部 */
   position: fixed;
   left: 0;
@@ -54,7 +53,7 @@ body {
   box-shadow: 0 -3px 5px rgb(0, 0, 0, 0.13);
   /* 一般高度49 */
   height: 49px;
-
+  z-index: 1;
   /* background-color: red; */
 }
 </style>
