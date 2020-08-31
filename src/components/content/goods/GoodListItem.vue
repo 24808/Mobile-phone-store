@@ -1,10 +1,11 @@
 <template>
   <div class="good-item">
-    <img :src="goodItem.show.img" alt />
+    <!-- @loadj；vue里默认监听图片的加载 -->
+    <img :src="goodItem.show.img" alt @load="imgageLoad" />
     <div class="goods-info">
-      <p>{{goodItem.title}}</p>
-      <span class="price">{{goodItem.price}}</span>
-      <span class="collect">{{goodItem.cfav}}</span>
+      <p>{{ goodItem.title }}</p>
+      <span class="price">{{ goodItem.price }}</span>
+      <span class="collect">{{ goodItem.cfav }}</span>
     </div>
   </div>
 </template>
@@ -16,9 +17,16 @@ export default {
       type: Object,
       default() {
         return {};
-      },
-    },
+      }
+    }
   },
+  methods: {
+    imgageLoad() {
+      // console.log("我被加载了");
+      //创建事件走线的事件，home里调用,main.js里创建事件走线
+      this.$bus.$emit("itemImageLoad");
+    }
+  }
 };
 </script>
 <style scoped>
