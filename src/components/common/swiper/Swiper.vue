@@ -1,15 +1,20 @@
 <template>
   <div id="hy-swiper">
-    <div class="swiper" @touchstart="touchStart" @touchmove="touchMove" @touchend="touchEnd">
+    <div
+      class="swiper"
+      @touchstart="touchStart"
+      @touchmove="touchMove"
+      @touchend="touchEnd"
+    >
       <slot></slot>
     </div>
     <slot name="indicator"></slot>
     <div class="indicator">
-      <slot name="indicator" v-if="showIndicator && slideCount>1">
+      <slot name="indicator" v-if="showIndicator && slideCount > 1">
         <div
           v-for="(item, index) in slideCount"
           class="indi-item"
-          :class="{active: index === currentIndex-1}"
+          :class="{ active: index === currentIndex - 1 }"
           :key="index"
         ></div>
       </slot>
@@ -23,57 +28,57 @@ export default {
   props: {
     interval: {
       type: Number,
-      default: 3000,
+      default: 3000
     },
     animDuration: {
       type: Number,
-      default: 300,
+      default: 300
     },
     moveRatio: {
       type: Number,
-      default: 0.25,
+      default: 0.25
     },
     showIndicator: {
       type: Boolean,
-      default: true,
-    },
+      default: true
+    }
   },
-  data: function () {
+  data: function() {
     return {
       slideCount: 0, // 元素个数
       totalWidth: 0, // swiper的宽度
       swiperStyle: {}, // swiper样式
       currentIndex: 1, // 当前的index
-      scrolling: false, // 是否正在滚动
+      scrolling: false // 是否正在滚动
     };
   },
-  mounted: function () {
+  mounted: function() {
     // 1.操作DOM, 在前后添加Slide
     setTimeout(() => {
       this.handleDom();
 
       // 2.开启定时器
       this.startTimer();
-    }, 100);
+    }, 200);
   },
   methods: {
     /**
      * 定时器操作
      */
-    startTimer: function () {
+    startTimer: function() {
       this.playTimer = window.setInterval(() => {
         this.currentIndex++;
         this.scrollContent(-this.currentIndex * this.totalWidth);
       }, this.interval);
     },
-    stopTimer: function () {
+    stopTimer: function() {
       window.clearInterval(this.playTimer);
     },
 
     /**
      * 滚动到正确的位置
      */
-    scrollContent: function (currentPosition) {
+    scrollContent: function(currentPosition) {
       // 0.设置正在滚动
       this.scrolling = true;
 
@@ -91,7 +96,7 @@ export default {
     /**
      * 校验正确的位置
      */
-    checkPosition: function () {
+    checkPosition: function() {
       window.setTimeout(() => {
         // 1.校验正确的位置
         this.swiperStyle.transition = "0ms";
@@ -111,7 +116,7 @@ export default {
     /**
      * 设置滚动的位置
      */
-    setTransform: function (position) {
+    setTransform: function(position) {
       this.swiperStyle.transform = `translate3d(${position}px, 0, 0)`;
       this.swiperStyle[
         "-webkit-transform"
@@ -122,7 +127,7 @@ export default {
     /**
      * 操作DOM, 在DOM前后添加Slide
      */
-    handleDom: function () {
+    handleDom: function() {
       // 1.获取要操作的元素
       let swiperEl = document.querySelector(".swiper");
       let slidesEls = swiperEl.getElementsByClassName("slide");
@@ -147,7 +152,7 @@ export default {
     /**
      * 拖动事件的处理
      */
-    touchStart: function (e) {
+    touchStart: function(e) {
       // 1.如果正在滚动, 不可以拖动
       if (this.scrolling) return;
 
@@ -158,7 +163,7 @@ export default {
       this.startX = e.touches[0].pageX;
     },
 
-    touchMove: function (e) {
+    touchMove: function(e) {
       // 1.计算出用户拖动的距离
       this.currentX = e.touches[0].pageX;
       this.distance = this.currentX - this.startX;
@@ -169,7 +174,7 @@ export default {
       this.setTransform(moveDistance);
     },
 
-    touchEnd: function (e) {
+    touchEnd: function(e) {
       // 1.获取移动的距离
       let currentMove = Math.abs(this.distance);
 
@@ -200,15 +205,15 @@ export default {
     /**
      * 控制上一个, 下一个
      */
-    previous: function () {
+    previous: function() {
       this.changeItem(-1);
     },
 
-    next: function () {
+    next: function() {
       this.changeItem(1);
     },
 
-    changeItem: function (num) {
+    changeItem: function(num) {
       // 1.移除定时器
       this.stopTimer();
 
@@ -218,8 +223,8 @@ export default {
 
       // 3.添加定时器
       this.startTimer();
-    },
-  },
+    }
+  }
 };
 </script>
 

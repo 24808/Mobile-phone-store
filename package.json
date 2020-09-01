@@ -10,7 +10,11 @@
     "axios": "^0.19.2",
     "better-scroll": "^1.13.2",
     "core-js": "^3.6.5",
+    "element-ui": "^2.13.2",
     "vue": "^2.6.11",
+    "vue-awesome-swiper": "^4.1.1",
+    "vue-better-slider": "^1.1.0",
+    "vue-concise-slider": "^3.4.4",
     "vue-router": "^3.4.3"
   },
   "devDependencies": {

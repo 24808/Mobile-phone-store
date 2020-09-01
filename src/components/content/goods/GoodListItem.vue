@@ -1,5 +1,5 @@
 <template>
-  <div class="good-item">
+  <div class="good-item" @click="itemClick">
     <!-- @loadj；vue里默认监听图片的加载 -->
     <img :src="goodItem.show.img" alt @load="imgageLoad" />
     <div class="goods-info">
@@ -17,16 +17,28 @@ export default {
       type: Object,
       default() {
         return {};
-      }
-    }
+      },
+    },
   },
+
   methods: {
     imgageLoad() {
       // console.log("我被加载了");
       //创建事件走线的事件，home里调用,main.js里创建事件走线
       this.$bus.$emit("itemImageLoad");
-    }
-  }
+    },
+    itemClick() {
+      // this.$router.push("/detail" + this.goodItem.iid/);
+      // this.$router.push("/detail");
+      //query传值
+      this.$router.push({
+        path: "/detail",
+        query: {
+          id: this.goodItem.iid,
+        },
+      });
+    },
+  },
 };
 </script>
 <style scoped>

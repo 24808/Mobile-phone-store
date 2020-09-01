@@ -3,7 +3,7 @@
     <!-- 用div包起来好设置属性 -->
     <div class="left">
       <!-- 多个slot设置具名插槽 -->
-      <slot name></slot>
+      <slot name="left"></slot>
     </div>
     <div class="center">
       <slot name="center"></slot>
