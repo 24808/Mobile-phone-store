@@ -1,7 +1,7 @@
 <template>
   <div class="good-item" @click="itemClick">
     <!-- @loadj；vue里默认监听图片的加载 -->
-    <img :src="goodItem.show.img" alt @load="imgageLoad" />
+    <img :src="showImage" alt @load="imgageLoad" />
     <div class="goods-info">
       <p>{{ goodItem.title }}</p>
       <span class="price">{{ goodItem.price }}</span>
@@ -20,7 +20,11 @@ export default {
       },
     },
   },
-
+  computed: {
+    showImage() {
+      return this.goodItem.image || this.goodItem.show.img;
+    },
+  },
   methods: {
     imgageLoad() {
       // console.log("我被加载了");

@@ -71,6 +71,7 @@ import backTop from "./../../components/content/backTop/backTop";
 //数据
 import { getHomeMultidata, getHomeGoods } from "./../../network/home";
 import debounce from "./../../common/utils";
+import { itemListenerMixin } from "./../../common/mixin";
 export default {
   name: "home",
 
@@ -84,6 +85,7 @@ export default {
     Scroll,
     backTop,
   },
+  mixins: [itemListenerMixin],
   data() {
     return {
       result: "我是24708",
@@ -98,11 +100,14 @@ export default {
       currentType: "pop",
       //是否显示回到顶部
       isShowbackTop: true,
+
       //悬停距离顶部的位置
       taboffsetTop: 0,
       //是否吸顶
       isTabFixed: false,
       saveY: 0,
+      //混入的变量
+      // itemImgListstener: null,
     };
   },
   // 首页创建完发送请求
@@ -120,7 +125,7 @@ export default {
     //设置进入路由的滚动条位置
     this.$refs.scroll.scrollTo(0, -this.saveY, 0);
     //滚动条刷新
-    this.$refs.scroll.refresh();
+    this.$refs.scroll.scroll.refresh();
   },
   deactivated() {
     console.log("不活跃");
@@ -129,22 +134,36 @@ export default {
     //设置离开y轴DE 的方法
 
     this.saveY = this.$refs.scroll.getscrollY();
+    //取消全局事件监听
+    //取消事件
+
+    this.$bus.$off("itemImgLoad", this.itemImgListstener);
   },
   mounted() {
-    ////防抖动要执行的函数及
-    // const refresh = debounce(this.$refs.scroll.refresh, 200);
+    (this.itemImgListstener = () => {
+      this.$refs.scroll.scroll.refresh();
+    }),
+      this.$bus.$on("itemImageLoad", this.itemImgListstener);
+    // ////防抖动要执行的函数及
+    // // const refresh = debounce(this.$refs.scroll.refresh, 200);
+    // //对监听的事件进行保存
+    // this.itemImgListstener = () => {
+    //   this.$refs.scroll.refresh();
+    // };
     // this.$bus.$on("itemImageLoad", () => {
     //   // console.log("图片被加载了");
     //   //每张异步的图片加载完计算scroll
     //   //短路，第一个为false后面不执行
     //   //防抖动
     //   // 每一张图片都请求一次，延迟200ms执行，如果200ms内再一次执行则清除这一次执行下一次
-    //   refresh();
+    //   this.itemImgListstener;
     //   // this.$refs.scroll.scroll && this.$refs.scroll.scroll.refresh();
     //   //滑动距离顶部的位置
     //   // this.taboffsetTop = this.$refs.tabControl;
     // });
     // $el获取组件的元素
+    //对监听的事件进行保存
+    // this.itemImgListstener=
   },
   methods: {
     SwoperImageLoad() {
