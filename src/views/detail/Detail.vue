@@ -1,33 +1,15 @@
 <template name="Detail">
   <div id="detail">
     <!-- //导航栏 -->
-    <detail-nav-bar
-      class="detail-nav"
-      @titleClick="titleClick"
-      ref="nav"
-    ></detail-nav-bar>
+    <detail-nav-bar class="detail-nav" @titleClick="titleClick" ref="nav"></detail-nav-bar>
     <!-- //判断是不是空的对象 -->
-    <Scroll
-      class="content"
-      ref="scroll"
-      @contentscroll="contentscroll"
-      :probe="3"
-    >
+    <Scroll class="content" ref="scroll" @contentscroll="contentscroll" :probe="3">
       <detail-swiper :top-images="topImages"></detail-swiper>
       <detail-base-info :goods="goods"></detail-base-info>
       <detail-shop-info :shop="shop"></detail-shop-info>
-      <detail-goods-info
-        :detailInfo="detailInfo"
-        @imageLoad="imageLoad"
-      ></detail-goods-info>
-      <detail-param-info
-        ref="params"
-        :paramInfo="paramInfo"
-      ></detail-param-info>
-      <detail-comment-info
-        ref="comment"
-        :commentInfo="commentInfo"
-      ></detail-comment-info>
+      <detail-goods-info :detailInfo="detailInfo" @imageLoad="imageLoad"></detail-goods-info>
+      <detail-param-info ref="params" :paramInfo="paramInfo"></detail-param-info>
+      <detail-comment-info ref="comment" :commentInfo="commentInfo"></detail-comment-info>
       <goods-list ref="recommend" :goods="recommends"></goods-list>
 
       <p>啊，我是详情页{{ iid }}</p>
@@ -54,7 +36,7 @@ import {
   getRecommend,
   Goods,
   Shop,
-  GoodsParam
+  GoodsParam,
 } from "./../../network/detail";
 //滚动条
 import Scroll from "./../../components/common/scroll/Scroll";
@@ -76,7 +58,7 @@ export default {
     DetailCommentInfo,
     GoodsList,
     DetailBottomBar,
-    backTop
+    backTop,
   },
   mixins: [itemListenerMixin],
   data() {
@@ -97,7 +79,7 @@ export default {
       //顶部栏的联动
       currentIndex: 0,
       //
-      isShowbackTop: true
+      isShowbackTop: true,
     };
   },
   created() {
@@ -105,7 +87,7 @@ export default {
     //蛇者id
     this.iid = this.$route.query.id;
     // console.log(getDetail);
-    getdetail(this.iid).then(res => {
+    getdetail(this.iid).then((res) => {
       console.log(res.data.result.itemInfo.topImages);
       //获取顶部的图片录播数据
       const data = res.data.result;
@@ -128,7 +110,7 @@ export default {
       data.rate.cTate !== 0 ? (this.commentInfo = data.rate.list[0]) : {};
 
       //获取评论信息
-      getRecommend().then(res => {
+      getRecommend().then((res) => {
         //映射图片路径
         // var list = res.data.data.list;
         // this.recommends = list.map((x) => {
@@ -182,8 +164,10 @@ export default {
       product.iid = this.goods.iid;
       console.log("asdasdsd");
       console.log(this.goods);
-      //将商品加入到vuexy
-      this.$store.commit("addCart", product);
+      //将商品加入到vuex mutations
+      // this.$store.commit("addCart", product);
+      //将商品加入到vuex mutations
+      this.$store.dispatch("addCart", product);
     },
     backClick() {
       console.log("我被点击了");
@@ -227,7 +211,7 @@ export default {
       //     this.$refs.nav.currentIndex = this.currentIndex;
       //   }
       // }
-    }
+    },
   },
   mounted() {
     // let newRefresh = debouce(this.$refs.scroll.refresh, 200);
@@ -239,7 +223,7 @@ export default {
   destroyed() {
     //取消事件
     this.$bus.$off("itemImgLoad", this.itemImgListstener);
-  }
+  },
 };
 </script>
 <style scoped>
