@@ -5,7 +5,7 @@
       <span>全选</span>
     </div>
     <div class="Price">合计:{{totalPrice}}</div>
-    <div class="caclulate">去计算({{checkLength}})</div>
+    <div class="caclulate" @click="calClick">去计算({{checkLength}})</div>
   </div>
 </template>
 <script>
@@ -24,6 +24,15 @@ export default {
       this.cartList.map((x) => {
         x.checked = den;
       });
+      //使用插件
+      den
+        ? this.cartList.length != 0 && this.$toast.show("选择了所有商品")
+        : this.cartList.length != 0 && this.$toast.show("取消了所有商品");
+    },
+    calClick() {
+      this.isSelect
+        ? null
+        : this.cartList.length != 0 && this.$toast.show("请选择需要支付的商品");
     },
   },
   computed: {
@@ -51,6 +60,14 @@ export default {
         return false;
       } else
         return this.cartList.every((x) => {
+          return x.checked;
+        });
+    },
+    isSelect() {
+      if (this.cartList.length == 0) {
+        return false;
+      } else
+        return this.cartList.some((x) => {
           return x.checked;
         });
     },

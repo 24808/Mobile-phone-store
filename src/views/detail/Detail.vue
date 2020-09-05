@@ -17,6 +17,7 @@
     <back-top @click.native="backClick" v-show="isShowbackTop"></back-top>
 
     <detail-bottom-bar @addCart="addCart"></detail-bottom-bar>
+    <!-- <toast :message="message" :show="show"></toast> -->
   </div>
 </template>
 <script>
@@ -45,6 +46,11 @@ import Scroll from "./../../components/common/scroll/Scroll";
 import DetailSwiper from "./childComps/DetailSwiper";
 import { debounce } from "./../../common/utils";
 import { itemListenerMixin } from "./../../common/mixin";
+//vuex
+import { mapActions } from "vuex";
+
+//toast
+// import Toast from "./../../components/common/toast/Toast";
 export default {
   name: "Detail",
   components: {
@@ -59,6 +65,7 @@ export default {
     GoodsList,
     DetailBottomBar,
     backTop,
+    // Toast,
   },
   mixins: [itemListenerMixin],
   data() {
@@ -80,6 +87,9 @@ export default {
       currentIndex: 0,
       //
       isShowbackTop: true,
+      //没用的
+      // message: "",
+      // show: false,
     };
   },
   created() {
@@ -155,6 +165,8 @@ export default {
   },
   updated() {},
   methods: {
+    //获取vuex的方法
+    ...mapActions({ addcart: "addCart" }),
     addCart() {
       const product = {};
       product.image = this.topImages[0];
@@ -167,7 +179,22 @@ export default {
       //将商品加入到vuex mutations
       // this.$store.commit("addCart", product);
       //将商品加入到vuex mutations
-      this.$store.dispatch("addCart", product);
+      //actions回调，返回一个Promise
+      // this.$store.dispatch("addCart", product).then((res) => {
+      //   console.log(res);
+      //   alert(res);
+      // });
+      //使用vuex的方法
+      this.addcart(product).then((res) => {
+        // (this.show = true), (this.message = res);
+        // setTimeout(() => {
+        //   this.show = false;
+        //   his.message = "";
+        // }, 500);
+        console.log("asdasdasdasddas");
+        //使用插件
+        this.$toast.show(res);
+      });
     },
     backClick() {
       console.log("我被点击了");
