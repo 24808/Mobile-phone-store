@@ -154,7 +154,6 @@ export default {
         this.themeTopYs.push(this.$refs.recommend.$el.offsetTop);
         //Number.MAX_VALUE数字最大值
         this.themeTopYs.push(Number.MAX_VALUE);
-
         console.log(this.themeTopYs);
       }, 200);
     });

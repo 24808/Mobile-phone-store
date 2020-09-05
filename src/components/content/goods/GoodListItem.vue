@@ -1,7 +1,8 @@
 <template>
   <div class="good-item" @click="itemClick">
     <!-- @loadj；vue里默认监听图片的加载 -->
-    <img :src="showImage" alt @load="imgageLoad" />
+    <!-- //懒加载的v-lazy -->
+    <img v-lazy="showImage" alt @load="imgageLoad" />
     <div class="goods-info">
       <p>{{ goodItem.title }}</p>
       <span class="price">{{ goodItem.price }}</span>
@@ -17,13 +18,13 @@ export default {
       type: Object,
       default() {
         return {};
-      },
-    },
+      }
+    }
   },
   computed: {
     showImage() {
       return this.goodItem.image || this.goodItem.show.img;
-    },
+    }
   },
   methods: {
     imgageLoad() {
@@ -38,11 +39,11 @@ export default {
       this.$router.push({
         path: "/detail",
         query: {
-          id: this.goodItem.iid,
-        },
+          id: this.goodItem.iid
+        }
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>
